@@ -83,7 +83,7 @@ class TimingMiddleware(object):
 
         # View name is defined as module.view
         # (e.g. django.contrib.auth.views.login)
-        self.view_name = view_func.__module__ + '.' + view_func.__name__
+        self.view_name = view_func.__module__ + '.' + getattr(view_func, '__name__', 'unknown')
 
         ## Time the response
         #with request.timings('view'):
