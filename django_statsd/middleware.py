@@ -83,7 +83,9 @@ class TimingMiddleware(object):
 
         # View name is defined as module.view
         # (e.g. django.contrib.auth.views.login)
-        self.view_name = view_func.__module__ + '.' + getattr(view_func, '__name__', 'unknown')
+        self.view_name = getattr(view_func, '_graphite_name', False)
+        if not self.view_name:
+            self.view_name = view_func.__module__ + '.' + getattr(view_func, '__name__', 'unknown')
 
         ## Time the response
         #with request.timings('view'):
